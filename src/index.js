@@ -50,13 +50,13 @@ function parseArgs(args) {
         if (currentArg === '--city') {
             cities = parseCities(args[index + 1]);
             index++;
-        }
-        if (currentArg === '--days') {
+        } else if (currentArg === '--days') {
             days = parseDays(args[index + 1]);
             index++;
-        }
-        if (currentArg === '--no-cache') {
+        } else if (currentArg === '--no-cache') {
             noCache = true;
+        } else {
+            throw new Error(`Неизвестный параметр: ${currentArg}`);
         }
     }
 
@@ -77,7 +77,7 @@ function main() {
         const options = parseArgs(args);
         console.log(options);
     } catch (error) {
-        console.error(`Ошибка: ${error.message}`)
+        console.error(`Ошибка: ${error.message}`);
         process.exitCode = 1;
     }
 }
