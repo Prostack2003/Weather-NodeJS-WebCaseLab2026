@@ -33,5 +33,4 @@ async function geocodeCity(city) {
     }
 }
 
-const result = await geocodeCity();
-console.log(result);
+export { buildGeocodingUrl, geocodeCity };
