@@ -1,0 +1,10 @@
+# Dependencies and reports
+node_modules/
+src/reports
+
+# IDE
+.idea/
+
+# Secrets
+.env
+
