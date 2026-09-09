@@ -2,6 +2,44 @@ import { argv } from 'node:process';
 
 const args = argv.slice(2);
 
+function parseCities(value) {
+    let parsedCities = null;
+
+    if (value === undefined) {
+        throw new Error('Вы не ввели ни одного города')
+    } else if (value.startsWith('--')) {
+        throw new Error('Вы пропустили значение города')
+    } else {
+        parsedCities = value.split(',')
+        parsedCities = parsedCities
+            .map(city => city.trim())
+            .filter((city) => city.length > 0)
+    }
+
+    if (parsedCities.length === 0) {
+        throw new Error('Не указан город');
+    }
+
+    return parsedCities;
+}
+
+function parseDays(value) {
+    let parsedDays = Number(value);
+
+    if (value === undefined) {
+        throw new Error('После --days укажите количество дней от 1 до 7');
+    } else if (value.startsWith('--')) {
+        throw new Error ('Вы пропустили день, ведите значение дня - от 1 до 7')
+    } else if (!Number.isInteger(Number(value))) {
+        throw new Error('Введите целое число')
+    }
+    else if (parsedDays <= 0 || parsedDays >= 8) {
+        throw new Error('Вы ввели некорректный день, введите день - от 1 до 7')
+    }
+
+    return parsedDays;
+}
+
 function parseArgs(args) {
     let cities = null;
     let days = 3;
@@ -11,12 +49,11 @@ function parseArgs(args) {
         const currentArg = args[index];
 
         if (currentArg === '--city') {
-            cities = args[index + 1].split(',');
-            cities = cities.map((city) => city.trim());
+            cities = parseCities(args[index + 1]);
             index++
         }
         if (currentArg === '--days') {
-            days = Number(args[index + 1]);
+            days = parseDays(args[index + 1]);
             index++
         }
         if (currentArg === '--no-cache') {
@@ -34,5 +71,7 @@ function parseArgs(args) {
         noCache,
     }
 }
+
+console.log(Number.isInteger(2.5))
 
 console.log(parseArgs(args));
