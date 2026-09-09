@@ -1,6 +1,6 @@
-import {argv} from 'node:process';
+import process from 'node:process';
 
-const args = argv.slice(2);
+const args = process.argv.slice(2);
 
 function parseCities(value) {
     let parsedCities = null;
@@ -10,10 +10,10 @@ function parseCities(value) {
     } else if (value.startsWith('--')) {
         throw new Error('Вы пропустили значение города');
     } else {
-        parsedCities = value.split(',')
+        parsedCities = value.split(',');
         parsedCities = parsedCities
             .map(city => city.trim())
-            .filter((city) => city.length > 0)
+            .filter((city) => city.length > 0);
     }
 
     if (parsedCities.length === 0) {
@@ -29,7 +29,7 @@ function parseDays(value) {
     if (value === undefined) {
         throw new Error('После --days укажите количество дней от 1 до 7');
     } else if (value.startsWith('--')) {
-        throw new Error('Вы пропустили день, ведите значение дня - от 1 до 7');
+        throw new Error('Вы пропустили день, введите количество дней - от 1 до 7');
     } else if (!Number.isInteger(parsedDays)) {
         throw new Error('Введите целое число');
     } else if (parsedDays <= 0 || parsedDays >= 8) {
@@ -71,4 +71,15 @@ function parseArgs(args) {
     }
 }
 
-console.log(parseArgs(args));
+
+function main() {
+    try {
+        const options = parseArgs(args);
+        console.log(options);
+    } catch (error) {
+        console.error(`Ошибка: ${error.message}`)
+        process.exitCode = 1;
+    }
+}
+
+main();
