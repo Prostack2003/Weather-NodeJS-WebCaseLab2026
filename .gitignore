@@ -1,6 +1,6 @@
 # Dependencies and reports
 node_modules/
-src/reports
+reports
 
 # IDE
 .idea/
