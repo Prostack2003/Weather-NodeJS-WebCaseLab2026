@@ -8,12 +8,16 @@
     "main": "src/index.js",
     "scripts": {
         "run": "node src/index.js",
+        "test": "node --test",
         "lint": "eslint . --max-warnings=0",
         "format": "prettier --write .",
         "format:check": "prettier --check ."
     },
     "engines": {
         "node": ">= 20.0.0"
+    },
+    "dependencies": {
+        "dotenv": "^17.4.2"
     },
     "devDependencies": {
         "@eslint/js": "^10.0.1",
