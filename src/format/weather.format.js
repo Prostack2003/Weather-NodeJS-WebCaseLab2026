@@ -1,10 +1,10 @@
 function buildForecastRows(daily) {
     return daily.time.map((date, index) => {
         return {
-            'Дата': date,
+            Дата: date,
             'Минимальная температура': daily.temperature_2m_min[index],
             'Максимальная температура': daily.temperature_2m_max[index],
-            'Осадки': daily.precipitation_sum[index],
+            Осадки: daily.precipitation_sum[index],
         };
     });
 }
@@ -12,9 +12,7 @@ function buildForecastRows(daily) {
 function printWeatherReport(location, forecast) {
     console.log('');
     console.log(`Город: ${location.name}, ${location.country}`);
-    console.log(
-        `Координаты: ${location.latitude}, ${location.longitude}`
-    );
+    console.log(`Координаты: ${location.latitude}, ${location.longitude}`);
     console.log(
         `Единицы измерения: температура — ${forecast.dailyUnits.temperature_2m_min}, осадки — ${forecast.dailyUnits.precipitation_sum}`
     );
@@ -23,7 +21,4 @@ function printWeatherReport(location, forecast) {
     console.table(rows);
 }
 
-export {
-    buildForecastRows,
-    printWeatherReport,
-}
+export { buildForecastRows, printWeatherReport };

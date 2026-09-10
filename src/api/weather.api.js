@@ -18,14 +18,18 @@ async function fetchWithTimeout(url, timeoutMs = requestTimeoutMs) {
             signal: controller.signal,
         });
         return response;
-
     } catch (error) {
         if (error.name === 'AbortError') {
-            throw new Error(`Превышено время ожидания ${timeoutMs} мс`);
+            throw new Error(`Превышено время ожидания ${timeoutMs} мс`, {
+                cause: error,
+            });
         }
 
         throw new Error(
-            'Не удалось выполнить запрос. Проверьте подключение к сети.'
+            'Не удалось выполнить запрос. Проверьте подключение к сети.',
+            {
+                cause: error,
+            }
         );
     } finally {
         clearTimeout(timeoutId);
@@ -40,7 +44,6 @@ function buildGeocodingUrl(city) {
     url.searchParams.set('format', 'json');
 
     return url.toString();
-
 }
 
 async function geocodeCity(city) {
@@ -75,7 +78,7 @@ async function geocodeCity(city) {
             country: location.country,
             latitude: location.latitude,
             longitude: location.longitude,
-        }
+        };
     } else {
         throw new Error(`Город "${city}" не найден`);
     }
@@ -85,7 +88,10 @@ function buildForecastUrl(latitude, longitude, days) {
     const url = new URL('/v1/forecast', forecastBaseUrl);
     url.searchParams.set('latitude', latitude);
     url.searchParams.set('longitude', longitude);
-    url.searchParams.set('daily', 'temperature_2m_max,temperature_2m_min,precipitation_sum');
+    url.searchParams.set(
+        'daily',
+        'temperature_2m_max,temperature_2m_min,precipitation_sum'
+    );
     url.searchParams.set('forecast_days', days);
     url.searchParams.set('timezone', 'auto');
     url.searchParams.set('temperature_unit', temperatureUnit);
@@ -126,12 +132,7 @@ async function getForecast(latitude, longitude, days) {
     return {
         daily: data.daily,
         dailyUnits: data.daily_units,
-    }
+    };
 }
 
-export {
-    buildGeocodingUrl,
-    geocodeCity,
-    buildForecastUrl,
-    getForecast,
-};
+export { buildGeocodingUrl, geocodeCity, buildForecastUrl, getForecast };

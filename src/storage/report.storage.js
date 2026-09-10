@@ -41,10 +41,4 @@ async function readReport(filePath) {
     }
 }
 
-export {
-    buildReportPath,
-    formatDate,
-    saveReport,
-    readReport,
-};
-
+export { buildReportPath, formatDate, saveReport, readReport };

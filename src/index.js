@@ -3,7 +3,7 @@ import process from 'node:process';
 const args = process.argv.slice(2);
 
 function parseCities(value) {
-    let parsedCities = null;
+    let parsedCities;
 
     if (value === undefined) {
         throw new Error('Вы не ввели ни одного города');
@@ -12,7 +12,7 @@ function parseCities(value) {
     } else {
         parsedCities = value.split(',');
         parsedCities = parsedCities
-            .map(city => city.trim())
+            .map((city) => city.trim())
             .filter((city) => city.length > 0);
     }
 
@@ -29,7 +29,9 @@ function parseDays(value) {
     if (value === undefined) {
         throw new Error('После --days укажите количество дней от 1 до 7');
     } else if (value.startsWith('--')) {
-        throw new Error('Вы пропустили день, введите количество дней - от 1 до 7');
+        throw new Error(
+            'Вы пропустили день, введите количество дней - от 1 до 7'
+        );
     } else if (!Number.isInteger(parsedDays)) {
         throw new Error('Введите целое число');
     } else if (parsedDays <= 0 || parsedDays >= 8) {
@@ -68,9 +70,8 @@ function parseArgs(args) {
         cities,
         days,
         noCache,
-    }
+    };
 }
-
 
 function main() {
     try {
