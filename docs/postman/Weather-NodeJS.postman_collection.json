@@ -459,27 +459,27 @@
   "variable": [
     {
       "key": "geocodingBaseUrl",
-      "value": ""
+      "value": "https://geocoding-api.open-meteo.com"
     },
     {
       "key": "city",
-      "value": ""
+      "value": "Москва"
     },
     {
       "key": "forecastBaseUrl",
-      "value": ""
+      "value": "https://api.open-meteo.com"
     },
     {
       "key": "lat",
-      "value": ""
+      "value": "55.75204"
     },
     {
       "key": "lon",
-      "value": ""
+      "value": "37.61781"
     },
     {
       "key": "forecastDays",
-      "value": ""
+      "value": "3"
     }
   ]
 }
