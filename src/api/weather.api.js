@@ -57,7 +57,13 @@ async function geocodeCity(city) {
         );
     }
 
-    const data = await response.json();
+    let data;
+
+    try {
+        data = await response.json();
+    } catch {
+        throw new Error('Сервис геокодинга вернул некорректный JSON');
+    }
 
     if (Array.isArray(data.results) && data.results.length > 0) {
         const location = data.results[0];
@@ -101,7 +107,13 @@ async function getForecast(latitude, longitude, days) {
         );
     }
 
-    const data = await response.json();
+    let data;
+
+    try {
+        data = await response.json();
+    } catch {
+        throw new Error('Сервис прогноза вернул некорректный JSON');
+    }
 
     if (!data.daily || !data.daily_units) {
         throw new Error('API прогноза вернул данные неизвестного формата');
