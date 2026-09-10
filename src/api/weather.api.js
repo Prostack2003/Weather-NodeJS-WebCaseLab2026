@@ -22,7 +22,9 @@ async function fetchWithTimeout(url, timeoutMs = requestTimeoutMs) {
             throw new Error(`Превышено время ожидания ${timeoutMs} мс`);
         }
 
-        throw error;
+        throw new Error(
+            'Не удалось выполнить запрос. Проверьте подключение к сети.'
+        );
     } finally {
         clearTimeout(timeoutId);
     }
