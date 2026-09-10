@@ -1,8 +1,8 @@
-import process from 'node:process';
-
-const DEFAULT_TIMEOUT_MS = 5000;
-
-const requestTimeoutMs = Number(process.env.REQUEST_TIMEOUT_MS ?? DEFAULT_TIMEOUT_MS);
+import {
+    requestTimeoutMs,
+    geocodingBaseUrl,
+    forecastBaseUrl,
+} from '../config.js';
 
 async function fetchWithTimeout(url, timeoutMs = requestTimeoutMs) {
     const controller = new AbortController();
@@ -31,7 +31,7 @@ async function fetchWithTimeout(url, timeoutMs = requestTimeoutMs) {
 }
 
 function buildGeocodingUrl(city) {
-    const url = new URL('https://geocoding-api.open-meteo.com/v1/search');
+    const url = new URL('/v1/search', geocodingBaseUrl);
     url.searchParams.set('name', city);
     url.searchParams.set('count', '1');
     url.searchParams.set('language', 'ru');
@@ -80,7 +80,7 @@ async function geocodeCity(city) {
 }
 
 function buildForecastUrl(latitude, longitude, days) {
-    const url = new URL('/v1/forecast', 'https://api.open-meteo.com');
+    const url = new URL('/v1/forecast', forecastBaseUrl);
     url.searchParams.set('latitude', latitude);
     url.searchParams.set('longitude', longitude);
     url.searchParams.set('daily', 'temperature_2m_max,temperature_2m_min,precipitation_sum');
