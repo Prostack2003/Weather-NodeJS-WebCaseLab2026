@@ -45,8 +45,16 @@ async function geocodeCity(city) {
     const url = buildGeocodingUrl(city);
 
     const response = await fetchWithTimeout(url);
-    if (!response.ok) {
-        throw new Error(`Ошибка API геокодинга: HTTP ${response.status}`);
+    if (response.status >= 500) {
+        throw new Error(
+            `Сервис геокодинга временно недоступен: HTTP ${response.status}`
+        );
+    }
+
+    if (response.status >= 400) {
+        throw new Error(
+            `Сервис геокодинга отклонил запрос: HTTP ${response.status}`
+        );
     }
 
     const data = await response.json();
@@ -65,7 +73,6 @@ async function geocodeCity(city) {
     }
 }
 
-
 function buildForecastUrl(latitude, longitude, days) {
     const url = new URL('/v1/forecast', 'https://api.open-meteo.com');
     url.searchParams.set('latitude', latitude);
@@ -82,8 +89,16 @@ async function getForecast(latitude, longitude, days) {
 
     const response = await fetchWithTimeout(url);
 
-    if (!response.ok) {
-        throw new Error(`Ошибка API: HTTP ${response.status}`);
+    if (response.status >= 500) {
+        throw new Error(
+            `Сервис прогноза временно недоступен: HTTP ${response.status}`
+        );
+    }
+
+    if (response.status >= 400) {
+        throw new Error(
+            `Сервис прогноза отклонил запрос: HTTP ${response.status}`
+        );
     }
 
     const data = await response.json();
