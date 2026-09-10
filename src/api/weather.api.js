@@ -33,4 +33,42 @@ async function geocodeCity(city) {
     }
 }
 
-export { buildGeocodingUrl, geocodeCity };
+
+function buildForecastUrl(latitude, longitude, days) {
+    const url = new URL('/v1/forecast', 'https://api.open-meteo.com');
+    url.searchParams.set('latitude', latitude);
+    url.searchParams.set('longitude', longitude);
+    url.searchParams.set('daily', 'temperature_2m_max,temperature_2m_min,precipitation_sum');
+    url.searchParams.set('forecast_days', days);
+    url.searchParams.set('timezone', 'auto');
+
+    return url.toString();
+}
+
+async function getForecast(latitude, longitude, days) {
+    const url = buildForecastUrl(latitude, longitude, days);
+
+    const response = await fetch(url);
+
+    if (!response.ok) {
+        throw new Error(`Ошибка API: HTTP ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    if (!data.daily || !data.daily_units) {
+        throw new Error('API прогноза вернул данные неизвестного формата');
+    }
+
+    return {
+        daily: data.daily,
+        dailyUnits: data.daily_units,
+    }
+}
+
+export {
+    buildGeocodingUrl,
+    geocodeCity,
+    buildForecastUrl,
+    getForecast,
+};
