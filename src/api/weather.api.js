@@ -1,3 +1,33 @@
+import process from 'node:process';
+
+const DEFAULT_TIMEOUT_MS = 5000;
+
+const requestTimeoutMs = Number(process.env.REQUEST_TIMEOUT_MS ?? DEFAULT_TIMEOUT_MS);
+
+async function fetchWithTimeout(url, timeoutMs = requestTimeoutMs) {
+    const controller = new AbortController();
+
+    const timeoutId = setTimeout(() => {
+        controller.abort();
+    }, timeoutMs);
+
+    try {
+        const response = await fetch(url, {
+            signal: controller.signal,
+        });
+        return response;
+
+    } catch (error) {
+        if (error.name === 'AbortError') {
+            throw new Error(`Превышено время ожидания ${timeoutMs} мс`);
+        }
+
+        throw error;
+    } finally {
+        clearTimeout(timeoutId);
+    }
+}
+
 function buildGeocodingUrl(city) {
     const url = new URL('https://geocoding-api.open-meteo.com/v1/search');
     url.searchParams.set('name', city);
@@ -12,7 +42,7 @@ function buildGeocodingUrl(city) {
 async function geocodeCity(city) {
     const url = buildGeocodingUrl(city);
 
-    const response = await fetch(url);
+    const response = await fetchWithTimeout(url);
     if (!response.ok) {
         throw new Error(`Ошибка API геокодинга: HTTP ${response.status}`);
     }
@@ -48,7 +78,7 @@ function buildForecastUrl(latitude, longitude, days) {
 async function getForecast(latitude, longitude, days) {
     const url = buildForecastUrl(latitude, longitude, days);
 
-    const response = await fetch(url);
+    const response = await fetchWithTimeout(url);
 
     if (!response.ok) {
         throw new Error(`Ошибка API: HTTP ${response.status}`);
