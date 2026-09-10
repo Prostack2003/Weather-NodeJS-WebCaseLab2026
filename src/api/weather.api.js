@@ -2,6 +2,8 @@ import {
     requestTimeoutMs,
     geocodingBaseUrl,
     forecastBaseUrl,
+    temperatureUnit,
+    precipitationUnit,
 } from '../config.js';
 
 async function fetchWithTimeout(url, timeoutMs = requestTimeoutMs) {
@@ -86,6 +88,8 @@ function buildForecastUrl(latitude, longitude, days) {
     url.searchParams.set('daily', 'temperature_2m_max,temperature_2m_min,precipitation_sum');
     url.searchParams.set('forecast_days', days);
     url.searchParams.set('timezone', 'auto');
+    url.searchParams.set('temperature_unit', temperatureUnit);
+    url.searchParams.set('precipitation_unit', precipitationUnit);
 
     return url.toString();
 }
