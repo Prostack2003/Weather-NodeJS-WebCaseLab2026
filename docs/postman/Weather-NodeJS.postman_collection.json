@@ -1,0 +1,485 @@
+{
+  "info": {
+    "_postman_id": "2169f51d-dbc5-4393-9279-61ca26e1aaa5",
+    "name": "1 week - Weather REST API Node JS",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "33759105"
+  },
+  "item": [
+    {
+      "name": "GET",
+      "item": [
+        {
+          "name": "GET https://geocoding-api.open-meteo.com/v1/search",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{geocodingBaseUrl}}/v1/search?name={{city}}&count=1&language=ru&format=json",
+              "host": [
+                "{{geocodingBaseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "search"
+              ],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "{{city}}",
+                  "description": "Город"
+                },
+                {
+                  "key": "count",
+                  "value": "1",
+                  "description": "Один результат вернуть"
+                },
+                {
+                  "key": "language",
+                  "value": "ru",
+                  "description": "Русский язык"
+                },
+                {
+                  "key": "format",
+                  "value": "json",
+                  "description": "Формат для общения - JSON"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 - City Found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{geocodingBaseUrl}}/v1/search?name={{city}}&count=1&language=ru&format=json",
+                  "host": [
+                    "{{geocodingBaseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "search"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "{{city}}",
+                      "description": "Город"
+                    },
+                    {
+                      "key": "count",
+                      "value": "1",
+                      "description": "Один результат вернуть"
+                    },
+                    {
+                      "key": "language",
+                      "value": "ru",
+                      "description": "Русский язык"
+                    },
+                    {
+                      "key": "format",
+                      "value": "json",
+                      "description": "Формат для общения - JSON"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Wed, 09 Sep 2026 14:04:57 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "239"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "X-Encoding-Time",
+                  "value": "0.003993511199951172 ms"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "deflate"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"results\": [\n        {\n            \"id\": 524901,\n            \"name\": \"Москва\",\n            \"latitude\": 55.75204,\n            \"longitude\": 37.61781,\n            \"elevation\": 155,\n            \"feature_code\": \"PPLC\",\n            \"country_code\": \"RU\",\n            \"admin1_id\": 524894,\n            \"timezone\": \"Europe/Moscow\",\n            \"population\": 10381222,\n            \"country_id\": 2017370,\n            \"country\": \"Россия\",\n            \"admin1\": \"Москва\"\n        }\n    ],\n    \"generationtime_ms\": 1.991868\n}"
+            },
+            {
+              "name": "200 - City not Found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{geocodingBaseUrl}}/v1/search?name={{city}}&count=1&language=ru&format=json",
+                  "host": [
+                    "{{geocodingBaseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "search"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "{{city}}",
+                      "description": "Город"
+                    },
+                    {
+                      "key": "count",
+                      "value": "1",
+                      "description": "Один результат вернуть"
+                    },
+                    {
+                      "key": "language",
+                      "value": "ru",
+                      "description": "Русский язык"
+                    },
+                    {
+                      "key": "format",
+                      "value": "json",
+                      "description": "Формат для общения - JSON"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Wed, 09 Sep 2026 14:06:13 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "39"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "X-Encoding-Time",
+                  "value": "0.0033736228942871094 ms"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "deflate"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"generationtime_ms\": 1.4796257\n}"
+            },
+            {
+              "name": "400 - Error count must be between 1 and 100",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{geocodingBaseUrl}}/v1/search?name={{city}}&count=0&language=ru&format=json",
+                  "host": [
+                    "{{geocodingBaseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "search"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "{{city}}",
+                      "description": "Город"
+                    },
+                    {
+                      "key": "count",
+                      "value": "0",
+                      "description": "Один результат вернуть"
+                    },
+                    {
+                      "key": "language",
+                      "value": "ru",
+                      "description": "Русский язык"
+                    },
+                    {
+                      "key": "format",
+                      "value": "json",
+                      "description": "Формат для общения - JSON"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Wed, 09 Sep 2026 14:06:55 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "72"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "deflate"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"error\": true,\n    \"reason\": \"Parameter count must be between 1 and 100.\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "GET https://api.open-meteo.com/v1/forecast",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{forecastBaseUrl}}/v1/forecast?latitude={{lat}}&longitude={{lon}}&daily=temperature_2m_max,temperature_2m_min,precipitation_sum&forecast_days={{forecastDays}}&timezone=auto",
+              "host": [
+                "{{forecastBaseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "forecast"
+              ],
+              "query": [
+                {
+                  "key": "latitude",
+                  "value": "{{lat}}"
+                },
+                {
+                  "key": "longitude",
+                  "value": "{{lon}}"
+                },
+                {
+                  "key": "daily",
+                  "value": "temperature_2m_max,temperature_2m_min,precipitation_sum"
+                },
+                {
+                  "key": "forecast_days",
+                  "value": "{{forecastDays}}"
+                },
+                {
+                  "key": "timezone",
+                  "value": "auto"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 - Forecast received",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{forecastBaseUrl}}/v1/forecast?latitude={{lat}}}&longitude={{lon}}&daily=temperature_2m_max,temperature_2m_min,precipitation_sum&forecast_days={{forecastDays}}&timezone=auto",
+                  "host": [
+                    "{{forecastBaseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "forecast"
+                  ],
+                  "query": [
+                    {
+                      "key": "latitude",
+                      "value": "{{lat}}}"
+                    },
+                    {
+                      "key": "longitude",
+                      "value": "{{lon}}"
+                    },
+                    {
+                      "key": "daily",
+                      "value": "temperature_2m_max,temperature_2m_min,precipitation_sum"
+                    },
+                    {
+                      "key": "forecast_days",
+                      "value": "{{forecastDays}}"
+                    },
+                    {
+                      "key": "timezone",
+                      "value": "auto"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Wed, 09 Sep 2026 15:43:39 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "deflate"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"latitude\": 55.75,\n    \"longitude\": 37.625,\n    \"generationtime_ms\": 0.054836273193359375,\n    \"utc_offset_seconds\": 10800,\n    \"timezone\": \"Europe/Moscow\",\n    \"timezone_abbreviation\": \"GMT+3\",\n    \"elevation\": 151,\n    \"daily_units\": {\n        \"time\": \"iso8601\",\n        \"temperature_2m_max\": \"°C\",\n        \"temperature_2m_min\": \"°C\",\n        \"precipitation_sum\": \"mm\"\n    },\n    \"daily\": {\n        \"time\": [\n            \"2026-09-09\",\n            \"2026-09-10\",\n            \"2026-09-11\"\n        ],\n        \"temperature_2m_max\": [\n            21.1,\n            24.9,\n            16.6\n        ],\n        \"temperature_2m_min\": [\n            4.6,\n            12,\n            10.2\n        ],\n        \"precipitation_sum\": [\n            0,\n            0,\n            7.3\n        ]\n    }\n}"
+            },
+            {
+              "name": "400 - Invalid coordinates",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{forecastBaseUrl}}/v1/forecast?latitude=abc&longitude={{lon}}&daily=temperature_2m_max,temperature_2m_min,precipitation_sum&forecast_days={{forecastDays}}&timezone=auto",
+                  "host": [
+                    "{{forecastBaseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "forecast"
+                  ],
+                  "query": [
+                    {
+                      "key": "latitude",
+                      "value": "abc"
+                    },
+                    {
+                      "key": "longitude",
+                      "value": "{{lon}}"
+                    },
+                    {
+                      "key": "daily",
+                      "value": "temperature_2m_max,temperature_2m_min,precipitation_sum"
+                    },
+                    {
+                      "key": "forecast_days",
+                      "value": "{{forecastDays}}"
+                    },
+                    {
+                      "key": "timezone",
+                      "value": "auto"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Wed, 09 Sep 2026 15:46:17 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "88"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "deflate"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"reason\": \"Invalid value: Cannot initialize Float from invalid String value abc\",\n    \"error\": true\n}"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "geocodingBaseUrl",
+      "value": "https://geocoding-api.open-meteo.com"
+    },
+    {
+      "key": "city",
+      "value": "Москва"
+    },
+    {
+      "key": "forecastBaseUrl",
+      "value": "https://api.open-meteo.com"
+    },
+    {
+      "key": "lat",
+      "value": "55.75204"
+    },
+    {
+      "key": "lon",
+      "value": "37.61781"
+    },
+    {
+      "key": "forecastDays",
+      "value": "3"
+    }
+  ]
+}
