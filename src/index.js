@@ -1,4 +1,6 @@
 import process from 'node:process';
+import { getWeatherForCities } from './services/weather.service.js';
+import { printWeatherReport } from './format/weather.format.js';
 
 const args = process.argv.slice(2);
 
@@ -73,14 +75,31 @@ function parseArgs(args) {
     };
 }
 
-function main() {
+async function main() {
     try {
-        const options = parseArgs(args);
-        console.log(options);
+        const { cities, days, noCache } = parseArgs(args);
+        const results = await getWeatherForCities(cities, days, noCache);
+        let hasErrors = false;
+        results.forEach((result, index) => {
+            if (result.status === 'fulfilled') {
+                const { location, forecast } = result.value;
+                printWeatherReport(location, forecast);
+            } else if (result.status === 'rejected') {
+                hasErrors = true;
+                const city = cities[index];
+
+                console.error(
+                    `Ошибка для города ${city}: ${result.reason.message}`
+                );
+            }
+        });
+        if (hasErrors) {
+            process.exitCode = 1;
+        }
     } catch (error) {
         console.error(`Ошибка: ${error.message}`);
         process.exitCode = 1;
     }
 }
 
-main();
+await main();
